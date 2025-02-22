@@ -1,0 +1,14 @@
+[
+    {
+      "id": "1",
+      "name": "Chef Knife",
+      "description": "A versatile knife for all your cooking needs.",
+      "price": 99.99,
+      "image": "/images/small-kitchen-knife/image1.png",
+      "properties": {
+        "Blade Length": "8 inches",
+        "Material": "Stainless Steel",
+        "Handle": "Wood"
+      }
+    }
+  ]
