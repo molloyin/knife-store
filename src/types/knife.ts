@@ -9,6 +9,6 @@ export interface Knife {
   name: string;
   description: string;
   price: number;
-  image: string;
+  images: string[];
   properties: KnifeProperties;
 }

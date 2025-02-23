@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
     return (
       <div className="max-w-4xl mx-auto">
@@ -24,16 +26,23 @@ export default function Navbar() {
     return (
       <div className="w-full mx-auto mt-4">
         <div className="flex justify-between gap-4">
-          <button className="flex-1 border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
-            Home
-          </button>
-          <button className="flex-1 border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
-            Knives
-          </button>
-          <button className="flex-1 border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
-            About
-          </button>
+          <Link href="/" className="flex-1">
+            <button className="w-full border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
+              Home
+            </button>
+          </Link>
+          <Link href="/knifelist" className="flex-1">
+            <button className="w-full border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
+              Knives
+            </button>
+          </Link>
+          <Link href="/about" className="flex-1">
+            <button className="w-full border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
+              About
+            </button>
+          </Link>
         </div>
       </div>
     );
   }
+  

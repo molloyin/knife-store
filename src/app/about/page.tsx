@@ -3,14 +3,12 @@ import Navbar from '@/components/navbar';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-black text-white p-4">
-      <Navbar />
-      <main className="w-full max-w-4xl mx-auto mt-8">
+    <div className="min-h-screen bg-black text-white flex flex-col items-center p-4">
+      <main className="w-full max-w-4xl mt-4">
+        <Navbar />
         <h1 className="text-3xl font-bold mb-4">About Us</h1>
         <p>
-          We are passionate knife artisans crafting high-quality blades for chefs
-          and enthusiasts worldwide. Our mission is to blend tradition with
-          modern technology.
+          Im not acutally just a grunt. I was the one who killed Osama Been Ladeen.
         </p>
       </main>
     </div>

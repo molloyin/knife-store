@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import knives from "../../../data/knives.json";
+import knives from "@/data/knives.json";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: undefined,
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     line_items: [
       {
         price_data: {
-          currency: "usd",
+          currency: "nzd",
           product_data: { name: knife.name },
           unit_amount: Math.round(knife.price * 100),
         },
