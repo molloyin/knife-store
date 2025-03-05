@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe'
 import Navbar from '@/components/navbar'
 
 interface ReturnPageProps {
-  searchParams: { session_id?: string }
+  searchParams: Promise<{ session_id?: string }>
 }
 
 export default async function Return({ searchParams } : ReturnPageProps ) {
