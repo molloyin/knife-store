@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Knife } from '@/types/knife';
+import CheckoutModal from './checkoutmodal';
 
 interface KnifeDisplayPopupProps {
   knife: Knife;
@@ -10,9 +11,9 @@ interface KnifeDisplayPopupProps {
 
 export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showCheckout, setShowCheckout] = useState(false);
   const hasMultiple = knife.images.length > 1;
 
-  // Navigation functions with non-looping logic
   const nextImage = () => {
     if (currentImageIndex < knife.images.length - 1) {
       setCurrentImageIndex((i) => i + 1);
@@ -40,7 +41,6 @@ export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
           />
           {hasMultiple && (
             <>
-              {/* Previous Button */}
               {currentImageIndex > 0 && (
                 <button
                   onClick={prevImage}
@@ -62,7 +62,6 @@ export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
                   </svg>
                 </button>
               )}
-              {/* Next Button */}
               {currentImageIndex < knife.images.length - 1 && (
                 <button
                   onClick={nextImage}
@@ -84,7 +83,6 @@ export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
                   </svg>
                 </button>
               )}
-              {/* Pagination Dots */}
               <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex justify-center">
                 {knife.images.map((_, index) => (
                   <div
@@ -98,7 +96,6 @@ export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
             </>
           )}
         </div>
-
         {/* Knife Properties */}
         <div className="w-1/3 flex flex-col gap-1.5 sm:gap-2 pt-2 sm:pt-3 pr-2 sm:pr-3 pl-0">
           <div className="border-[0.5px] border-white p-1.5 pt-1 pb-1 sm:p-2">
@@ -111,29 +108,21 @@ export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
               <p className="text-xs sm:text-sm">{value}</p>
             </div>
           ))}
-          <div className="border-[0.5px] border-white p-1.5 pt-1 pb-1 sm:p-2 ">
+          <div className="border-[0.5px] border-white p-1.5 pt-1 pb-1 sm:p-2">
             <label className="block text-sm sm:text-base font-semibold">Price</label>
             <p className="text-xs sm:text-sm">${knife.price}</p>
           </div>
-          {/* Buy Now Button */}
           <button
-            onClick={() => handleBuyNow(knife.id)}
+            onClick={() => setShowCheckout(true)}
             className="mt-auto mb-2 sm:mb-3 bg-neutral-200 hover:bg-white transition text-black text-sm sm:text-base p-2 pr-4 pl-4"
           >
             Buy Now
           </button>
         </div>
       </div>
+      {showCheckout && (
+        <CheckoutModal knifeId={knife.id} onClose={() => setShowCheckout(false)} />
+      )}
     </div>
   );
-}
-
-async function handleBuyNow(knifeId: string) {
-  const response = await fetch('/api/create-checkout-session', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ knifeId }),
-  });
-  const { url } = await response.json();
-  if (url) window.location.href = url;
 }

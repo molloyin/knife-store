@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Knife } from '@/types/knife';
+import CheckoutModal from './checkoutmodal';
 
 interface KnifeDisplayProps {
   knife: Knife;
@@ -10,18 +11,18 @@ interface KnifeDisplayProps {
 
 export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showCheckout, setShowCheckout] = useState(false);
   const hasMultiple = knife.images.length > 1;
 
-  // Navigation functions with non-looping logic
   const nextImage = () => {
     if (currentImageIndex < knife.images.length - 1) {
-      setCurrentImageIndex(i => i + 1);
+      setCurrentImageIndex((i) => i + 1);
     }
   };
 
   const prevImage = () => {
     if (currentImageIndex > 0) {
-      setCurrentImageIndex(i => i - 1);
+      setCurrentImageIndex((i) => i - 1);
     }
   };
 
@@ -30,7 +31,7 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
       <h2 className="text-2xl font-semibold mb-2">{knife.name}</h2>
       <div className="border-[0.5px] border-white border-flex flex-col md:flex-row">
         <div className="flex flex-col md:flex-row gap-3">
-          {/* Knife Image (View on the left) */}
+          {/* Knife Image */}
           <div className="md:w-2/3">
             <div className="border-b-[0.5px] md:border-b-0 md:border-r-[0.5px] border-white relative group">
               <Image
@@ -42,7 +43,6 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
               />
               {hasMultiple && (
                 <>
-                  {/* Previous Button */}
                   {currentImageIndex > 0 && (
                     <button
                       onClick={prevImage}
@@ -64,8 +64,6 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
                       </svg>
                     </button>
                   )}
-
-                  {/* Next Button */}
                   {currentImageIndex < knife.images.length - 1 && (
                     <button
                       onClick={nextImage}
@@ -87,8 +85,6 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
                       </svg>
                     </button>
                   )}
-
-                  {/* Pagination Dots */}
                   <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex justify-center">
                     {knife.images.map((_, index) => (
                       <div
@@ -103,8 +99,7 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
               )}
             </div>
           </div>
-
-          {/* Knife Properties (Boxes on the right) */}
+          {/* Knife Properties */}
           <div className="md:w-1/3 flex flex-col gap-2 pt-1 md:pt-3 pr-3 pl-3 md:pl-0">
             <div className="border-[0.5px] border-white p-2">
               <label className="block font-semibold">Description:</label>
@@ -120,10 +115,8 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
               <label className="block font-semibold">Price:</label>
               <p className="text-sm">${knife.price}</p>
             </div>
-
-            {/* Buy Now Button */}
             <button
-              onClick={() => handleBuyNow(knife.id)}
+              onClick={() => setShowCheckout(true)}
               className="md:mt-auto mt-4 mb-4 bg-neutral-200 hover:bg-white transition text-black p-2 pr-5 pl-5"
             >
               Buy Now
@@ -131,16 +124,9 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
           </div>
         </div>
       </div>
+      {showCheckout && (
+        <CheckoutModal knifeId={knife.id} onClose={() => setShowCheckout(false)} />
+      )}
     </div>
   );
-}
-
-async function handleBuyNow(knifeId: string) {
-  const response = await fetch('/api/create-checkout-session', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ knifeId }),
-  });
-  const { url } = await response.json();
-  if (url) window.location.href = url;
 }
