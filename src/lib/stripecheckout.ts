@@ -25,6 +25,31 @@ export async function createCheckoutSession(knifeId: string) {
     mode: "payment",
     return_url: `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
     payment_method_types: ["card"],
+    shipping_address_collection: {
+      allowed_countries: ["NZ", "AU"], // Restrict shipping to New Zealand and Australia
+    },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          type: "fixed_amount",
+          fixed_amount: {
+            amount: 500, // 5 NZD flat shipping rate
+            currency: "nzd",
+          },
+          display_name: "Standard Shipping",
+          delivery_estimate: {
+            minimum: {
+              unit: "business_day",
+              value: 5,
+            },
+            maximum: {
+              unit: "business_day",
+              value: 7,
+            },
+          },
+        },
+      },
+    ],
   });
 
   return session.client_secret;

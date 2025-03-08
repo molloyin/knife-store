@@ -9,9 +9,11 @@ For Kez
 
 -setup GitHub
  	-clone repo
-	-change keys and email at /return
+	-change keys, and email at /return
 	-push to vercel
 
 //==
 -Add about section
--Add knives
+-Add bugee contact page
+-Add knives, photos + json
+-Modify shipping info

@@ -2,7 +2,7 @@
 
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { createCheckoutSession } from '@/app/actions/stripe';
+import { createCheckoutSession } from '@/lib/stripecheckout';
 
 // Load Stripe with the publishable key from environment variables
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);

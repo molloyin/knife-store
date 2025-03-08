@@ -3,6 +3,7 @@
 import Navbar from '@/components/navbar';
 import KnifeDisplay from '@/components/knifedisplay';
 import knives from '@/data/knives.json';
+import Footer from '@/components/footer';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <Navbar />
         <div className='mt-6' />
         <KnifeDisplay knife={knives[0]} />
+        <Footer />
       </main>
     </div>
   );

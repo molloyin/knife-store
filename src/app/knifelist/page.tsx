@@ -6,6 +6,7 @@ import { Knife } from '@/types/knife';
 import knives from '@/data/knives.json'; 
 import KnifeDisplayPopup from '@/components/knifedisplaypopup'; 
 import Navbar from '@/components/navbar'; 
+import Footer from '@/components/footer';
 
 export default function KnifeList() {
   const [selectedKnife, setSelectedKnife] = useState<Knife | null>(null);
@@ -54,6 +55,7 @@ export default function KnifeList() {
             </div>
           </div>
         )}
+      <Footer />
       </main>
     </div>
   );
