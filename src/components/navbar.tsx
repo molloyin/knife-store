@@ -1,48 +1,73 @@
 import Link from "next/link";
 
 export default function Navbar() {
-    return (
-      <div className="max-w-4xl mx-auto">
-        <Header />
-        <NavLinks />
-      </div>
-    );
-  }
-  
-  export function Header() {
-    return (
-      <div className="border-[0.5px] border-white p-4 w-full text-left">
-        <p className="text-3xl font-bold tracking-wide pb-1">
-          OBJECTIVE RESOURCE GROUP
-        </p>
-        <p className="text-sm font-medium tracking-widest">
-          CUSTOM KNIVES / BUILT FOR PURPOSE
-        </p>
-      </div>
-    );
-  }
-  
-  export function NavLinks() {
-    return (
-      <div className="w-full mx-auto mt-4">
-        <div className="flex justify-between gap-4">
-          <Link href="/" className="flex-1">
-            <button className="w-full border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
-              Home
-            </button>
-          </Link>
-          <Link href="/knifelist" className="flex-1">
-            <button className="w-full border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
-              Knives
-            </button>
-          </Link>
-          <Link href="/about" className="flex-1">
-            <button className="w-full border-[0.5px] border-white px-6 py-2 uppercase text-sm tracking-widest hover:bg-white hover:text-black transition text-center">
-              About
-            </button>
-          </Link>
+  return (
+    <nav className="max-w-6xl mx-auto bg-zinc-900 rounded-lg shadow-lg border border-zinc-800 mb-4">
+      <div className="p-6 pb-4">
+        <div className="text-center mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+            OBJECTIVE RESOURCE GROUP
+          </h1>
+          <p className="text-sm md:text-base text-gray-400 font-medium tracking-wide">
+            Custom Knives • Built for Purpose • Veteran Owned
+          </p>
+        </div>
+        
+        <div className="border-t border-zinc-800 pt-4 mt-4">
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link href="/" className="flex-1 min-w-[120px]">
+              <button className="w-full bg-zinc-950 border border-zinc-700 px-6 py-3 rounded-md text-sm font-semibold text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200">
+                Home
+              </button>
+            </Link>
+            <Link href="/knifelist" className="flex-1 min-w-[120px]">
+              <button className="w-full bg-zinc-950 border border-zinc-700 px-6 py-3 rounded-md text-sm font-semibold text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200">
+                Shop Knives
+              </button>
+            </Link>
+            <Link href="/about" className="flex-1 min-w-[120px]">
+              <button className="w-full bg-zinc-950 border border-zinc-700 px-6 py-3 rounded-md text-sm font-semibold text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200">
+                About
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-    );
-  }
-  
+    </nav>
+  );
+}
+
+// export function Header() {
+//   return (
+//     <div className="text-center">
+//       <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+//         OBJECTIVE RESOURCE GROUP
+//       </h1>
+//       <p className="text-sm md:text-base text-gray-400 font-medium tracking-wide">
+//         Custom Knives  Built for Purpose / Veteran Owned
+//       </p>
+//     </div>
+//   );
+// }
+
+// export function NavLinks() {
+//   return (
+//     <div className="flex flex-wrap justify-center gap-2">
+//       <Link href="/" className="flex-1 min-w-[120px]">
+//         <button className="w-full bg-zinc-950 border border-zinc-700 px-6 py-3 rounded-md text-sm font-semibold text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200">
+//           Home
+//         </button>
+//       </Link>
+//       <Link href="/knifelist" className="flex-1 min-w-[120px]">
+//         <button className="w-full bg-zinc-950 border border-zinc-700 px-6 py-3 rounded-md text-sm font-semibold text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200">
+//           Shop Knives
+//         </button>
+//       </Link>
+//       <Link href="/about" className="flex-1 min-w-[120px]">
+//         <button className="w-full bg-zinc-950 border border-zinc-700 px-6 py-3 rounded-md text-sm font-semibold text-gray-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200">
+//           About
+//         </button>
+//       </Link>
+//     </div>
+//   );
+// }

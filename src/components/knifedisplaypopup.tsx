@@ -27,97 +27,106 @@ export default function KnifeDisplayPopup({ knife }: KnifeDisplayPopupProps) {
   };
 
   return (
-    <div className="border-[0.5px] border-white p-3 sm:p-5">
-      <h2 className="text-2xl font-semibold mb-2">{knife.name}</h2>
-      <div className="border-[0.5px] border-white flex flex-row gap-2 sm:gap-3">
-        {/* Knife Image */}
-        <div className="w-2/3 border-r-[0.5px] border-white relative group flex items-center justify-center">
-          <Image
-            src={knife.images[currentImageIndex]}
-            alt={knife.name}
-            width={400}
-            height={400}
-            className="w-full h-auto object-cover"
-          />
-          {hasMultiple && (
-            <>
-              {currentImageIndex > 0 && (
-                <button
-                  onClick={prevImage}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-gray-800 bg-opacity-50 hover:bg-opacity-75 transition-all duration-300 group-hover:opacity-100 opacity-0 cursor-pointer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-4 h-4 text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
+    <div className="bg-zinc-900 rounded-lg shadow-xl border border-zinc-800 overflow-hidden">
+      <div className="p-4 sm:p-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">{knife.name}</h2>
+        <div className="flex flex-col sm:flex-row gap-4">
+          {/* Knife Image */}
+          <div className="sm:w-2/3">
+            <div className="relative group bg-zinc-950 rounded-lg overflow-hidden border border-zinc-800">
+              <Image
+                src={knife.images[currentImageIndex]}
+                alt={knife.name}
+                width={500}
+                height={500}
+                className="w-full h-auto object-cover"
+              />
+              {hasMultiple && (
+                <>
+                  {currentImageIndex > 0 && (
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 rounded-full bg-zinc-800 bg-opacity-90 hover:bg-zinc-700 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  {currentImageIndex < knife.images.length - 1 && (
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 rounded-full bg-zinc-800 bg-opacity-90 hover:bg-zinc-700 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    {knife.images.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          index === currentImageIndex ? 'bg-blue-500 scale-125' : 'bg-zinc-600 hover:bg-zinc-500'
+                        }`}
+                      ></button>
+                    ))}
+                  </div>
+                </>
               )}
-              {currentImageIndex < knife.images.length - 1 && (
-                <button
-                  onClick={nextImage}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-gray-800 bg-opacity-50 hover:bg-opacity-75 transition-all duration-300 group-hover:opacity-100 opacity-0 cursor-pointer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="w-4 h-4 text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              )}
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex justify-center">
-                {knife.images.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`w-1.5 h-1.5 rounded-full mx-1 transition-all duration-300 ${
-                      index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-600'
-                    }`}
-                  ></div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-        {/* Knife Properties */}
-        <div className="w-1/3 flex flex-col gap-1.5 sm:gap-2 pt-2 sm:pt-3 pr-2 sm:pr-3 pl-0">
-          <div className="border-[0.5px] border-white p-1.5 pt-1 pb-1 sm:p-2">
-            <label className="block text-sm sm:text-base font-semibold">Description</label>
-            <p className="text-xs sm:text-sm">{knife.description}</p>
-          </div>
-          {Object.entries(knife.properties).map(([key, value]) => (
-            <div key={key} className="border-[0.5px] border-white p-1.5 pt-1 pb-1 sm:p-2">
-              <label className="block text-sm sm:text-base font-semibold capitalize">{key}</label>
-              <p className="text-xs sm:text-sm">{value}</p>
             </div>
-          ))}
-          <div className="border-[0.5px] border-white p-1.5 pt-1 pb-1 sm:p-2">
-            <label className="block text-sm sm:text-base font-semibold">Price</label>
-            <p className="text-xs sm:text-sm">${knife.price}</p>
           </div>
-          <button
-            onClick={() => setShowCheckout(true)}
-            className="mt-auto mb-2 sm:mb-3 bg-neutral-200 hover:bg-white transition text-black text-sm sm:text-base p-2 pr-4 pl-4"
-          >
-            Buy Now
-          </button>
+          
+          {/* Knife Properties */}
+          <div className="sm:w-1/3 flex flex-col gap-3">
+            <div className="bg-zinc-950 rounded-lg p-3 border border-zinc-800">
+              <label className="block text-xs sm:text-sm font-bold text-gray-400 mb-1 uppercase tracking-wide">Description</label>
+              <p className="text-sm text-gray-300 leading-relaxed">{knife.description}</p>
+            </div>
+            
+            {Object.entries(knife.properties).map(([key, value]) => (
+              <div key={key} className="bg-zinc-950 rounded-lg p-3 border border-zinc-800">
+                <label className="block text-xs sm:text-sm font-bold text-gray-400 mb-1 uppercase tracking-wide">{key}</label>
+                <p className="text-sm text-gray-300">{value}</p>
+              </div>
+            ))}
+            
+            <div className="bg-blue-950 bg-opacity-30 rounded-lg p-3 border-2 border-blue-900">
+              <label className="block text-xs sm:text-sm font-bold text-gray-400 mb-1 uppercase tracking-wide">Price</label>
+              <p className="text-xl sm:text-2xl font-bold text-blue-400">${knife.price} <span className="text-xs sm:text-sm font-normal text-gray-400">NZD</span></p>
+            </div>
+            
+            <button
+              onClick={() => setShowCheckout(true)}
+              className="mt-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 shadow-lg hover:shadow-blue-500/50 text-sm sm:text-base"
+            >
+              Buy Now
+            </button>
+          </div>
         </div>
       </div>
       {showCheckout && (
