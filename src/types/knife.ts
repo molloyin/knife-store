@@ -1,5 +1,6 @@
 export interface KnifeProperties {
   [key: string]: string;
+  "Blade Length": string;
   Material: string;
   Handle: string;
 }

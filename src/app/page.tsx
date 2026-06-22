@@ -1,5 +1,3 @@
-"use client"; 
-
 import Navbar from '@/components/navbar';
 import KnifeDisplay from '@/components/knifedisplay';
 import knives from '@/data/knives.json';
@@ -12,23 +10,6 @@ export default function Home() {
       <main className="w-full max-w-6xl mt-4">
         <Navbar />
         
-        {/* Hero Section */}
-        {/* <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 rounded-lg shadow-2xl border border-blue-800 p-8 sm:p-12 mb-8 text-white">
-          <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Handcrafted Excellence
-            </h1>
-            <p className="text-lg sm:text-xl mb-6 text-blue-100">
-              Each knife is custom-made with precision and care, designed to last a lifetime. Discover craftsmanship that cuts above the rest.
-            </p>
-            <Link href="/knifelist">
-              <button className="bg-white text-blue-900 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                Shop Collection
-              </button>
-            </Link>
-          </div>
-        </div> */}
-
         {/* Featured Product Section */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4"/>

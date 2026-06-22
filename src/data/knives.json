@@ -10,17 +10,5 @@
         "Material": "Stainless Steel",
         "Handle": "Wood"
       }
-    },
-    {
-      "id": "2",
-      "name": "French Man",
-      "description": "Hates you.",
-      "price": 9.99,
-      "images": ["/images/small-kitchen-knife-2/image1.jpeg", "/images/small-kitchen-knife-2/image2.png"],
-      "properties": {
-        "Blade Length": "8 inches",
-        "Material": "Stainless Steel",
-        "Handle": "Wood"
-      }
     }
   ]
