@@ -1,72 +1,108 @@
-import Navbar from '@/components/navbar';
-import KnifeDisplay from '@/components/knifedisplay';
-import knives from '@/data/knives.json';
-import Footer from '@/components/footer';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import knives from "@/data/knives.json";
+import ProductFeature from "@/components/productfeature";
+
+const ETHOS = [
+  {
+    label: "Materials",
+    body: "Premium stainless steel and hand-selected handle stock. Nothing on the bench that we would not carry ourselves.",
+  },
+  {
+    label: "Custom Made",
+    body: "Every piece is cut, ground and finished to order. Specify the blade, the handle, the purpose.",
+  },
+  {
+    label: "Built to Last",
+    body: "Made to be used, not displayed. With basic care these knives outlive the people who buy them.",
+  },
+];
 
 export default function Home() {
+  const featured = knives.slice(0, 3);
+
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-4">
-      <main className="w-full max-w-6xl mt-4">
-        <Navbar />
-        
-        {/* Featured Product Section */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4"/>
-          <KnifeDisplay knife={knives[0]} />
+    <>
+      {/* Hero */}
+      <section className="relative flex h-[100svh] w-full items-center justify-center overflow-hidden bg-black">
+        <Image
+          src={knives[0].images[0]}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black" />
+
+        <div className="relative z-10 w-full px-4 text-center sm:px-6">
+          <h1 className="display text-[17vw] text-white/90 sm:text-[13vw]">
+            Objective
+            <br />
+            Resource
+            <br />
+            Group
+          </h1>
+          <p className="ui mt-8 text-white/70">
+            Custom Knives &middot; Built for Purpose &middot; Veteran Owned
+          </p>
         </div>
 
-        {/* Hero Section */}
-        <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 rounded-lg shadow-2xl border border-blue-800 p-8 sm:p-12 mb-8 text-white">
-          <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Handcrafted Excellence
-            </h1>
-            <p className="text-lg sm:text-xl mb-6 text-blue-100">
-              Each knife is custom-made with precision and care, designed to last a lifetime. Discover craftsmanship that cuts above the rest.
-            </p>
-            <Link href="/knifelist">
-              <button className="bg-white text-blue-900 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                Shop Collection
-              </button>
-            </Link>
-          </div>
-        </div>
-        {/* Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg p-6 text-center">
-            <div className="w-12 h-12 bg-blue-900 bg-opacity-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Quality Materials</h3>
-            <p className="text-gray-400 text-sm">Premium stainless steel and carefully selected handles</p>
-          </div>
-          
-          <div className="bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg p-6 text-center">
-            <div className="w-12 h-12 bg-blue-900 bg-opacity-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Custom Made</h3>
-            <p className="text-gray-400 text-sm">Each piece crafted to order with attention to detail</p>
-          </div>
-          
-          <div className="bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg p-6 text-center">
-            <div className="w-12 h-12 bg-blue-900 bg-opacity-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Built to Last</h3>
-            <p className="text-gray-400 text-sm">Lifetime durability with proper care and maintenance</p>
-          </div>
-        </div>
+        <Link
+          href="#featured"
+          className="ui-sm absolute inset-x-0 bottom-8 z-10 mx-auto w-fit text-white/60 transition-opacity hover:opacity-100"
+        >
+          Scroll &darr;
+        </Link>
+      </section>
 
-        <Footer />
-      </main>
-    </div>
+      {/* Featured products */}
+      <div id="featured" className="hairline">
+        <div className="mx-auto flex max-w-shell items-baseline justify-between px-4 py-6 sm:px-6">
+          <p className="ui-sm text-muted">Featured</p>
+          <p className="ui-sm text-muted">
+            {String(featured.length).padStart(2, "0")} {featured.length === 1 ? "Piece" : "Pieces"}
+          </p>
+        </div>
+      </div>
+
+      {featured.map((knife, index) => (
+        <ProductFeature key={knife.id} knife={knife} index={index} />
+      ))}
+
+      {/* Ethos */}
+      <section className="hairline">
+        <div className="mx-auto max-w-shell px-4 py-20 sm:px-6 sm:py-28">
+          <p className="ui-sm mb-14 text-muted">The Work</p>
+          <div className="grid gap-12 sm:grid-cols-3 sm:gap-8">
+            {ETHOS.map((item, index) => (
+              <div key={item.label} className="border-t border-line pt-6">
+                <p className="ui-sm mb-4 text-muted">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className="display mb-4 text-[8vw] text-white sm:text-[2.4vw]">
+                  {item.label}
+                </h3>
+                <p className="ui max-w-xs normal-case leading-relaxed tracking-normal text-muted">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="hairline">
+        <Link
+          href="/knifelist"
+          className="group mx-auto flex max-w-shell flex-col items-start gap-6 px-4 py-20 transition-opacity hover:opacity-70 sm:px-6 sm:py-28"
+        >
+          <span className="ui-sm text-muted">Shop</span>
+          <span className="display text-[13vw] leading-[0.85] text-white sm:text-[7vw]">
+            View All Knives
+          </span>
+          <span className="ui text-foreground">Enter the collection &raquo;</span>
+        </Link>
+      </section>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { createCheckoutSession } from '@/lib/stripecheckout';
@@ -20,24 +21,34 @@ export default function CheckoutModal({ knifeId, onClose }: CheckoutModalProps) 
     return clientSecret;
   };
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="relative bg-zinc-900 border border-zinc-800 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-auto">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-300 text-3xl font-light z-10 w-10 h-10 flex items-center justify-center rounded-full hover:bg-zinc-800 transition-colors"
-          aria-label="Close"
-        >
-          ×
+    <div className="fixed inset-0 z-[60] overflow-y-auto bg-black">
+      <div className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-black px-4 py-4 sm:px-6">
+        <span className="ui-sm text-muted">Checkout</span>
+        <button onClick={onClose} className="ui link-underline text-foreground" aria-label="Close checkout">
+          Close &times;
         </button>
-        <div className="p-4">
-          <EmbeddedCheckoutProvider
-            stripe={stripePromise}
-            options={{ fetchClientSecret }}
-          >
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
-        </div>
+      </div>
+
+      <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6">
+        <EmbeddedCheckoutProvider
+          stripe={stripePromise}
+          options={{ fetchClientSecret }}
+        >
+          <EmbeddedCheckout />
+        </EmbeddedCheckoutProvider>
       </div>
     </div>
   );

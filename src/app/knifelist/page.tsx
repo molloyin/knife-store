@@ -1,78 +1,46 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
+import knives from "@/data/knives.json";
+import PageShell from "@/components/pageshell";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { Knife } from '@/types/knife';
-import knives from '@/data/knives.json';
-import KnifeDisplay from '@/components/knifedisplay';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
+export const metadata = {
+  title: "Knives | Objective Resource Group",
+  description: "The full collection of custom knives from Objective Resource Group.",
+};
 
 export default function KnifeList() {
-  const [selectedKnife, setSelectedKnife] = useState<Knife | null>(null);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
-
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-4">
-      <main className="w-full max-w-6xl mt-4">
-        <Navbar />
-        
-        <div className="mb-6 ml-2 mt-6">
-          <h1 className="text-3xl font-bold text-white mb-2">Our Collection</h1>
-          <p className="text-gray-400">Discover our range of handcrafted custom knives</p>
-        </div>
-
-        {/* Responsive Grid for Knife Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 ml-2 mb-8">
-          {knives.map((knife) => (
-            <div
-              key={knife.id}
-              className="bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-1"
-              onClick={() => setSelectedKnife(knife)}
-            >
-              {/* Knife Image */}
-              <div className="aspect-square bg-zinc-950 relative overflow-hidden border-b border-zinc-800">
-                <Image
-                  src={knife.images[0]}
-                  alt={knife.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              
-              {/* Knife Info */}
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-white mb-2 line-clamp-1">{knife.name}</h3>
-                <p className="text-sm text-gray-400 mb-3 line-clamp-2">{knife.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-blue-400">${knife.price.toFixed(2)}</span>
-                  <span className="text-xs text-gray-500 uppercase tracking-wide">NZD</span>
-                </div>
-              </div>
+    <PageShell
+      eyebrow={`${String(knives.length).padStart(2, "0")} ${knives.length === 1 ? "Product" : "Products"}`}
+      title="Knives"
+      intro="Every piece is handmade to order. Select a knife for full specifications."
+      wide
+    >
+      <div className="grid grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4">
+        {knives.map((knife, index) => (
+          <Link key={knife.id} href={`/knifelist/${knife.id}`} className="group block">
+            <div className="relative aspect-square w-full overflow-hidden bg-[#0a0a0a]">
+              <Image
+                src={knife.images[0]}
+                alt={knife.name}
+                fill
+                priority={index < 4}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+              />
             </div>
-          ))}
-        </div>
 
-        {/* Popup for Knife Display */}
-        {selectedKnife && (
-          <div className={checkoutOpen ? "" : "fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"}>
-            <div className={checkoutOpen ? "" : "relative bg-zinc-900 border border-zinc-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto"}>
-              {!checkoutOpen && (
-                <button
-                  onClick={() => setSelectedKnife(null)}
-                  className="absolute top-4 right-4 text-gray-500 hover:text-gray-300 text-3xl font-light z-10 w-10 h-10 flex items-center justify-center rounded-full hover:bg-zinc-800 transition-colors"
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-              )}
-              <KnifeDisplay knife={selectedKnife} onCheckoutOpenChange={setCheckoutOpen} />
+            <div className="mt-4 border-t border-line pt-3">
+              <h2 className="ui text-white">{knife.name}</h2>
+              <p className="ui mt-2 flex flex-wrap items-baseline gap-x-2 text-muted">
+                <span>${knife.price.toFixed(2)} NZD</span>
+                <span className="text-line">·</span>
+                <span className="transition-opacity group-hover:opacity-60">Details &raquo;</span>
+              </p>
             </div>
-          </div>
-        )}
-        
-        <Footer />
-      </main>
-    </div>
+          </Link>
+        ))}
+      </div>
+    </PageShell>
   );
 }

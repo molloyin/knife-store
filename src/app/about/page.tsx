@@ -1,40 +1,60 @@
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
+import Link from "next/link";
+import PageShell from "@/components/pageshell";
+
+export const metadata = {
+  title: "About | Objective Resource Group",
+  description: "Custom knives, built for purpose. Veteran owned.",
+};
+
+const SECTIONS = [
+  {
+    label: "Our Craft",
+    body: "Each knife in the collection is handmade with meticulous attention to detail. We use premium materials only — high-quality stainless steel blades and carefully selected handle stock — so every piece is as durable as it is good-looking.",
+  },
+  {
+    label: "Our Philosophy",
+    body: "A knife is more than a tool; it is an extension of the person carrying it. Every piece we make is designed with a specific purpose in mind, whether that is a professional kitchen, the back country, or a collection.",
+  },
+  {
+    label: "Custom Orders",
+    body: "Most of what we make starts as a conversation. Tell us the blade, the handle and the job it has to do, and we will build it. Get in touch to start one.",
+  },
+];
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-4">
-      <main className="w-full max-w-4xl mt-4">
-        <Navbar />
-        
-        <div className="bg-zinc-900 border border-zinc-800 rounded-lg shadow-lg p-8 mb-6">
-          <h1 className="text-3xl font-bold mb-6 text-white">About Us</h1>
-          
-          <div className="prose prose-lg prose-invert max-w-none">
-            <p className="text-gray-300 leading-relaxed mb-4">
-              Welcome to Objective Resource Group, where craftsmanship meets purpose. We specialize in creating custom knives that are built to perform and built to last.
+    <PageShell
+      eyebrow="Objective Resource Group"
+      title={"Built for\nPurpose"}
+      intro="Where craftsmanship meets purpose. We make custom knives that are built to perform and built to last."
+    >
+      <div className="space-y-14">
+        {SECTIONS.map((section, index) => (
+          <section key={section.label} className="border-t border-line pt-6">
+            <p className="ui-sm mb-4 text-muted">{String(index + 1).padStart(2, "0")}</p>
+            <h2 className="display mb-5 text-[9vw] text-white sm:text-[3vw]">{section.label}</h2>
+            <p className="ui max-w-xl normal-case leading-relaxed tracking-normal text-muted">
+              {section.body}
             </p>
-            
-            <h2 className="text-2xl font-semibold mt-8 mb-4 text-white">Our Craft</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
-              Each knife in our collection is handcrafted with meticulous attention to detail. We use only premium materials including high-quality stainless steel blades and carefully selected handle materials to ensure both beauty and functionality.
-            </p>
-            
-            <h2 className="text-2xl font-semibold mt-8 mb-4 text-white">Our Philosophy</h2>
-            <p className="text-gray-300 leading-relaxed mb-4">
-              We believe that a knife is more than just a tool—it&apos;s an extension of its owner. That&apos;s why every piece we create is designed with a specific purpose in mind, whether it&apos;s for the professional chef, outdoor enthusiast, or collector.
-            </p>
-            
-            <div className="bg-blue-950 bg-opacity-30 border-l-4 border-blue-600 p-6 mt-8 rounded-r-lg">
-              <p className="text-gray-200 italic">
-                &quot;Quality is never an accident; it is always the result of high intention, sincere effort, intelligent direction and skillful execution.&quot;
-              </p>
-            </div>
-          </div>
+          </section>
+        ))}
+
+        <blockquote className="border-l border-white pl-6">
+          <p className="ui normal-case leading-relaxed tracking-normal text-foreground">
+            &quot;Quality is never an accident; it is always the result of high intention, sincere
+            effort, intelligent direction and skillful execution.&quot;
+          </p>
+        </blockquote>
+
+        <div className="flex flex-wrap gap-4">
+          <Link href="/knifelist" className="btn">
+            View the Collection &raquo;
+          </Link>
+          <Link href="/contact" className="btn-ghost">
+            Contact Us
+          </Link>
         </div>
-        
-        <Footer />
-      </main>
-    </div>
+      </div>
+    </PageShell>
   );
 }
