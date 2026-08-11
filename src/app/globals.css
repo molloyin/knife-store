@@ -48,10 +48,13 @@ body {
     line-height: 1.3;
   }
 
-  /* Heavy geometric display type — headings and wordmarks. */
+  /* Heavy geometric display type — headings and wordmarks.
+     line-height stays under 1 for a tight stack, but high enough that the
+     descender on J/Q clears the line below; tracking is snug, not colliding. */
   .display {
-    @apply font-display font-bold uppercase tracking-tightest;
-    line-height: 0.88;
+    @apply font-display font-bold uppercase;
+    letter-spacing: -0.025em;
+    line-height: 0.95;
   }
 
   .link-underline {
@@ -69,6 +72,14 @@ body {
 
   .hairline {
     @apply border-t border-line;
+  }
+
+  /* Shared width for the home-page featured block, so the section labels, the
+     photograph and its caption all share one set of edges. Capped well short of
+     full width: the photos are near-square, so a wider column would make each
+     feature taller than the viewport. */
+  .feature-column {
+    @apply mx-auto w-full max-w-[760px];
   }
 }
 

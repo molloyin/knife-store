@@ -15,14 +15,15 @@ const INFO_LINKS = [
 export default function Footer() {
   return (
     <footer className="hairline bg-black">
-      <div className="mx-auto max-w-shell px-4 py-16 sm:px-6 sm:py-20">
-        <Link href="/" className="display block text-[13vw] leading-[0.85] text-white sm:text-[9vw]">
-          Objective
-          <br />
-          Resource Group
+      <div className="mx-auto max-w-shell px-4 py-14 sm:px-6 sm:py-16">
+        <Link
+          href="/"
+          className="display block text-[17px] text-white transition-opacity hover:opacity-70 sm:text-[19px]"
+        >
+          Objective Resource Group
         </Link>
 
-        <div className="mt-14 grid grid-cols-2 gap-10 sm:grid-cols-3">
+        <div className="mt-12 grid grid-cols-2 gap-10 sm:grid-cols-3">
           <div>
             <p className="ui-sm mb-4 text-muted">Shop</p>
             <ul className="space-y-2.5">
@@ -63,7 +64,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-14 flex flex-col gap-2 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="hairline mt-12 flex flex-col gap-2 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="ui-sm text-muted">
             &copy; {new Date().getFullYear()} Objective Resource Group
           </p>

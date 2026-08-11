@@ -69,7 +69,7 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
 
             {/* Specification */}
             <div className="lg:sticky lg:top-[calc(var(--header-h)+2.5rem)] lg:self-start">
-              <h1 className="display break-words text-[13vw] leading-[0.85] text-white lg:text-[4.5vw]">
+              <h1 className="display break-words text-[13vw] text-white lg:text-[4.5vw]">
                 {knife.name}
               </h1>
 

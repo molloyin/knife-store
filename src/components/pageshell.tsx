@@ -12,7 +12,7 @@ export default function PageShell({ eyebrow, title, intro, children, wide }: Pag
     <div className="pt-[var(--header-h)]">
       <header className="mx-auto max-w-shell px-4 pb-10 pt-16 sm:px-6 sm:pb-14 sm:pt-24">
         {eyebrow && <p className="ui-sm mb-6 text-muted">{eyebrow}</p>}
-        <h1 className="display whitespace-pre-line text-[13vw] leading-[0.85] text-white sm:text-[7vw]">
+        <h1 className="display whitespace-pre-line text-[13vw] text-white sm:text-[7vw]">
           {title}
         </h1>
         {intro && <p className="ui mt-8 max-w-xl normal-case tracking-normal text-muted">{intro}</p>}

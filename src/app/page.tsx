@@ -57,8 +57,8 @@ export default function Home() {
       </section>
 
       {/* Featured products */}
-      <div id="featured" className="hairline">
-        <div className="mx-auto flex max-w-shell items-baseline justify-between px-4 py-6 sm:px-6">
+      <div id="featured" className="hairline px-4 sm:px-6">
+        <div className="feature-column flex items-baseline justify-between py-6">
           <p className="ui-sm text-muted">Featured</p>
           <p className="ui-sm text-muted">
             {String(featured.length).padStart(2, "0")} {featured.length === 1 ? "Piece" : "Pieces"}
@@ -94,10 +94,10 @@ export default function Home() {
       <section className="hairline">
         <Link
           href="/knifelist"
-          className="group mx-auto flex max-w-shell flex-col items-start gap-6 px-4 py-20 transition-opacity hover:opacity-70 sm:px-6 sm:py-28"
+          className="group mx-auto flex max-w-shell flex-col items-start gap-5 px-4 py-16 transition-opacity hover:opacity-70 sm:px-6 sm:py-20"
         >
           <span className="ui-sm text-muted">Shop</span>
-          <span className="display text-[13vw] leading-[0.85] text-white sm:text-[7vw]">
+          <span className="display text-[8vw] text-white sm:text-[clamp(28px,3.4vw,48px)]">
             View All Knives
           </span>
           <span className="ui text-foreground">Enter the collection &raquo;</span>

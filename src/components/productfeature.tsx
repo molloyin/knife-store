@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Knife } from "@/types/knife";
 import { useReveal } from "@/lib/usereveal";
 
@@ -11,48 +12,54 @@ interface ProductFeatureProps {
 }
 
 /**
- * Full-bleed scroll section: one product photograph filling the viewport with a
- * technical meta line overlaid along the bottom.
+ * One product photograph, centred, shown whole — the frame takes the image's own
+ * aspect ratio rather than cropping it to a fixed one — with a technical caption
+ * ruled off directly beneath it.
  */
 export default function ProductFeature({ knife, index }: ProductFeatureProps) {
   const { ref, cls } = useReveal<HTMLDivElement>();
+  // Measured from the file itself so any shape of photo is shown uncropped.
+  const [ratio, setRatio] = useState<number | null>(null);
 
   return (
-    <section ref={ref} className="relative w-full px-4 py-10 sm:px-6 sm:py-16">
-      <Link
-        href={`/knifelist/${knife.id}`}
-        className="group relative mx-auto block aspect-[4/3] w-full max-w-[1100px] overflow-hidden bg-black sm:aspect-[3/2] sm:w-[76%]"
-      >
-        <Image
-          src={knife.images[0]}
-          alt={knife.name}
-          fill
-          sizes="(max-width: 640px) 100vw, 76vw"
-          priority={index === 0}
-          className="object-cover opacity-90 transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
+    <section ref={ref} className="w-full px-4 py-12 sm:px-6 sm:py-20">
+      <div className="feature-column">
+        <Link href={`/knifelist/${knife.id}`} className="group block">
+          <div
+            className="relative w-full overflow-hidden bg-[#0a0a0a]"
+            style={{ aspectRatio: ratio ?? 1 }}
+          >
+            <Image
+              src={knife.images[0]}
+              alt={knife.name}
+              fill
+              sizes="(max-width: 640px) 92vw, 760px"
+              priority={index === 0}
+              onLoad={(event) => {
+                const img = event.currentTarget;
+                if (img.naturalWidth && img.naturalHeight) {
+                  setRatio(img.naturalWidth / img.naturalHeight);
+                }
+              }}
+              className="object-contain transition-transform duration-[1400ms] ease-out group-hover:scale-[1.03]"
+            />
+          </div>
 
-        {/* Index marker */}
-        <span className={`ui-sm reveal ${cls} absolute left-4 top-8 text-white/70 sm:left-6`}>
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-        {/* Meta line */}
-        <div className="absolute inset-x-0 bottom-0 px-4 pb-8 sm:px-6 sm:pb-10">
-          <div className={`reveal-line ${cls} mb-5 h-px w-full bg-white/40`} />
-          <div className={`reveal ${cls} flex flex-wrap items-baseline gap-x-3 gap-y-2`}>
-            <h2 className="display break-words text-[9vw] leading-[0.85] text-white sm:text-[4vw]">
+          {/* Caption — ruled off under the photo, aligned to its edges */}
+          <div className={`reveal-line ${cls} mt-5 h-px w-full bg-white/25`} />
+          <div className={`reveal ${cls} mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-2`}>
+            <span className="ui-sm text-muted">{String(index + 1).padStart(2, "0")}</span>
+            <h2 className="display break-words text-[7vw] text-white sm:text-[clamp(24px,2.6vw,38px)]">
               {knife.name}
             </h2>
-            <span className="ui ml-auto flex items-baseline gap-3 text-white">
+            <span className="ui flex w-full items-baseline gap-3 text-foreground sm:ml-auto sm:w-auto">
               <span>${knife.price.toFixed(2)} NZD</span>
-              <span className="text-white/40">·</span>
+              <span className="text-line">·</span>
               <span className="transition-opacity group-hover:opacity-60">Details &raquo;</span>
             </span>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </section>
   );
 }
