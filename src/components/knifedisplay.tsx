@@ -75,21 +75,25 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
 
               <p className="ui mt-6 text-white">${knife.price.toFixed(2)} NZD</p>
 
-              <p className="ui mt-8 max-w-md normal-case leading-relaxed tracking-normal text-muted">
-                {knife.description}
-              </p>
+              {knife.description && (
+                <p className="ui mt-8 max-w-md normal-case leading-relaxed tracking-normal text-muted">
+                  {knife.description}
+                </p>
+              )}
 
-              <dl className="mt-10 border-t border-line">
-                {Object.entries(knife.properties).map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="flex items-baseline justify-between gap-6 border-b border-line py-3.5"
-                  >
-                    <dt className="ui-sm text-muted">{key}</dt>
-                    <dd className="ui text-right text-foreground">{value}</dd>
-                  </div>
-                ))}
-              </dl>
+              {knife.specs.length > 0 && (
+                <dl className="mt-10 border-t border-line">
+                  {knife.specs.map((spec, index) => (
+                    <div
+                      key={`${spec.label}-${index}`}
+                      className="flex items-baseline justify-between gap-6 border-b border-line py-3.5"
+                    >
+                      <dt className="ui-sm text-muted">{spec.label}</dt>
+                      <dd className="ui text-right text-foreground">{spec.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
 
               <button
                 type="button"
@@ -111,7 +115,7 @@ export default function KnifeDisplay({ knife }: KnifeDisplayProps) {
       </div>
 
       {showCheckout && (
-        <CheckoutModal knifeId={knife.id} onClose={() => setShowCheckout(false)} />
+        <CheckoutModal knifeSlug={knife.slug} onClose={() => setShowCheckout(false)} />
       )}
     </>
   );

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import knives from "@/data/knives.json";
+import { knives } from "@/lib/knives";
 import PageShell from "@/components/pageshell";
 
 export const metadata = {
@@ -18,7 +18,7 @@ export default function KnifeList() {
     >
       <div className="grid grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4">
         {knives.map((knife, index) => (
-          <Link key={knife.id} href={`/knifelist/${knife.id}`} className="group block">
+          <Link key={knife.slug} href={`/knifelist/${knife.slug}`} className="group block">
             <div className="relative aspect-square w-full overflow-hidden bg-[#0a0a0a]">
               <Image
                 src={knife.images[0]}

@@ -28,7 +28,7 @@ export default function ProductFeature({ knife, index, reverse = false }: Produc
   return (
     <section ref={ref} className="w-full px-4 py-16 sm:px-6 lg:py-28">
       <Link
-        href={`/knifelist/${knife.id}`}
+        href={`/knifelist/${knife.slug}`}
         className={`group mx-auto flex max-w-shell flex-col md:items-center md:gap-8 ${
           reverse ? "md:flex-row-reverse" : "md:flex-row"
         }`}

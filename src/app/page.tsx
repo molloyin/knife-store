@@ -1,28 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
-import knives from "@/data/knives.json";
+import { featuredKnives } from "@/lib/knives";
 import ProductFeature from "@/components/productfeature";
 
 export default function Home() {
   // In development only, repeat the stock knives to fill three slots so the
   // alternating layout can be checked. Production shows the real data as-is.
   const featured =
-    process.env.NODE_ENV === "development" && knives.length > 0 && knives.length < 3
-      ? Array.from({ length: 3 }, (_, i) => knives[i % knives.length])
-      : knives.slice(0, 3);
+    process.env.NODE_ENV === "development" && featuredKnives.length > 0 && featuredKnives.length < 3
+      ? Array.from({ length: 3 }, (_, i) => featuredKnives[i % featuredKnives.length])
+      : featuredKnives;
+  // The first featured knife's first photo doubles as the hero background.
+  const heroImage = featuredKnives[0]?.images[0];
 
   return (
     <>
       {/* Hero */}
       <section className="relative flex h-[100svh] w-full items-center justify-center overflow-hidden bg-black">
-        <Image
-          src={knives[0].images[0]}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-40"
-        />
+        {heroImage && (
+          <Image
+            src={heroImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black" />
 
         <div className="relative z-10 w-full px-4 text-center sm:px-6">
@@ -58,7 +62,7 @@ export default function Home() {
 
       {featured.map((knife, index) => (
         <ProductFeature
-          key={`${knife.id}-${index}`}
+          key={`${knife.slug}-${index}`}
           knife={knife}
           index={index}
           reverse={index % 2 === 1}

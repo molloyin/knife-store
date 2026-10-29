@@ -8,13 +8,13 @@ import { createCheckoutSession } from '@/lib/stripecheckout';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 interface CheckoutModalProps {
-  knifeId: string;
+  knifeSlug: string;
   onClose: () => void;
 }
 
-export default function CheckoutModal({ knifeId, onClose }: CheckoutModalProps) {
+export default function CheckoutModal({ knifeSlug, onClose }: CheckoutModalProps) {
   const fetchClientSecret = async () => {
-    const clientSecret = await createCheckoutSession(knifeId);
+    const clientSecret = await createCheckoutSession(knifeSlug);
     if (!clientSecret) {
       throw new Error('Client secret is null');
     }

@@ -1,0 +1,73 @@
+# Pages CMS (https://pagescms.org): the form Kez uses to edit the knife list.
+# Each save commits src/data/knives.json to GitHub and Netlify rebuilds the site;
+# scripts/check-knives.mjs checks the file first. Field names must match
+# src/types/knife.ts — Pages CMS drops any key in the file that isn't listed here.
+
+media:
+  input: public/images/knives
+  output: /images/knives
+  extensions: [jpg, jpeg, png, webp]
+  # Random names mean an upload can never overwrite a photo another knife uses.
+  rename: random
+
+content:
+  - name: knives
+    label: Knives
+    type: file
+    path: src/data/knives.json
+    format: json
+    fields:
+      # The list sits under a "knives" key (not at the file's root) so the editor
+      # can label each knife by name; a top-level list only shows "Item #1".
+      - name: knives
+        label: false
+        type: object
+        list:
+          min: 1
+          collapsible:
+            collapsed: true
+            summary: "{index}. {name}"
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+            description: Shown on the site and used in the knife's web address, so every knife needs a different name.
+          - name: price
+            label: Price (NZD)
+            type: number
+            required: true
+            description: Just the number, like 349 or 349.50.
+            options:
+              min: 1
+          - name: description
+            label: Description
+            type: text
+          - name: images
+            label: Photos
+            type: image
+            required: true
+            description: The first photo is the main one. JPG, PNG or WebP.
+            options:
+              multiple:
+                max: 8
+          - name: specs
+            label: Specs
+            type: object
+            description: One row per detail, such as "Blade length" and "210 mm". Shown on the knife's page in this order.
+            list:
+              collapsible: false
+            fields:
+              - name: label
+                label: Detail
+                type: string
+                required: true
+              - name: value
+                label: Value
+                type: string
+                required: true
+          - name: featured
+            label: Show on home page
+            type: boolean
+            default: false
+            description: Tick two or three knives. The first ticked knife's main photo is also the home page background.

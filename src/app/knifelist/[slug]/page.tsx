@@ -1,18 +1,18 @@
 import { notFound } from "next/navigation";
-import knives from "@/data/knives.json";
+import { getKnife, knives } from "@/lib/knives";
 import KnifeDisplay from "@/components/knifedisplay";
 
 interface ProductPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return knives.map((knife) => ({ id: knife.id }));
+  return knives.map((knife) => ({ slug: knife.slug }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps) {
-  const { id } = await params;
-  const knife = knives.find((k) => k.id === id);
+  const { slug } = await params;
+  const knife = getKnife(slug);
 
   if (!knife) return { title: "Not Found | Objective Resource Group" };
 
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: ProductPageProps) {
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { id } = await params;
-  const knife = knives.find((k) => k.id === id);
+  const { slug } = await params;
+  const knife = getKnife(slug);
 
   if (!knife) notFound();
 

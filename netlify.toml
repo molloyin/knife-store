@@ -1,0 +1,10 @@
+[build]
+  # npm runs the "prebuild" knife-list check first; if it fails, the live site is left as it was.
+  command = "npm run build"
+  # Pages CMS commits each uploaded photo on its own, before the knife list is saved.
+  # Skip those photo-only commits (exit 0 = skip); the save that follows deploys them.
+  # Equal refs mean a first, uncached or manual rebuild, which must always build.
+  ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)public/images/knives'"
+
+[build.environment]
+  NODE_VERSION = "24"

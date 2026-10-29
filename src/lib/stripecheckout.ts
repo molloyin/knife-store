@@ -2,10 +2,10 @@
 
 import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
-import knives from "@/data/knives.json";
+import { getKnife } from "@/lib/knives";
 
-export async function createCheckoutSession(knifeId: string) {
-  const knife = knives.find((k) => k.id === knifeId);
+export async function createCheckoutSession(knifeSlug: string) {
+  const knife = getKnife(knifeSlug);
   if (!knife) throw new Error("Knife not found");
 
   const origin = (await headers()).get("origin");
