@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const SHOP_LINKS = [
   { href: "/knifelist", label: "All Knives" },
-  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 

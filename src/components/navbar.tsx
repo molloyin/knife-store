@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/knifelist", label: "Knives" },
-  { href: "/about", label: "About" },
 ];
 
 export default function SiteHeader() {
