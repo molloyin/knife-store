@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Adds `is-visible` once the element has scrolled into view (one-shot),
- * driving the `.reveal` / `.reveal-line` transitions in globals.css.
+ * driving the `.reveal` transition in globals.css.
  */
 export function useReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null);

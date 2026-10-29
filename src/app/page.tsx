@@ -4,7 +4,12 @@ import knives from "@/data/knives.json";
 import ProductFeature from "@/components/productfeature";
 
 export default function Home() {
-  const featured = knives.slice(0, 3);
+  // In development only, repeat the stock knives to fill three slots so the
+  // alternating layout can be checked. Production shows the real data as-is.
+  const featured =
+    process.env.NODE_ENV === "development" && knives.length > 0 && knives.length < 3
+      ? Array.from({ length: 3 }, (_, i) => knives[i % knives.length])
+      : knives.slice(0, 3);
 
   return (
     <>
@@ -43,7 +48,7 @@ export default function Home() {
 
       {/* Featured products */}
       <div id="featured" className="hairline px-4 sm:px-6">
-        <div className="feature-column flex items-baseline justify-between py-6">
+        <div className="mx-auto flex max-w-shell items-baseline justify-between py-6">
           <p className="ui-sm text-muted">Featured</p>
           <p className="ui-sm text-muted">
             {String(featured.length).padStart(2, "0")} {featured.length === 1 ? "Piece" : "Pieces"}
@@ -52,7 +57,12 @@ export default function Home() {
       </div>
 
       {featured.map((knife, index) => (
-        <ProductFeature key={knife.id} knife={knife} index={index} />
+        <ProductFeature
+          key={`${knife.id}-${index}`}
+          knife={knife}
+          index={index}
+          reverse={index % 2 === 1}
+        />
       ))}
 
       {/* Closing CTA */}

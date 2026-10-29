@@ -74,12 +74,27 @@ body {
     @apply border-t border-line;
   }
 
-  /* Shared width for the home-page featured block, so the section labels, the
-     photograph and its caption all share one set of edges. Capped well short of
-     full width: the photos are near-square, so a wider column would make each
-     feature taller than the viewport. */
-  .feature-column {
-    @apply mx-auto w-full max-w-[760px];
+  /* Fades the outer edges of a photo into the page black, so the photo has no
+     hard rectangular edge. Two crossed gradients keep the shape rectangular
+     with soft corners. The intermediate stops ease the fade in and out; a
+     plain linear ramp leaves a visible inner frame where the fade starts.
+     Change --feather to set the fade width. */
+  .feather {
+    --feather: 8%;
+    --feather-stops: transparent 0%,
+      rgb(0 0 0 / 0.15) calc(var(--feather) * 0.25),
+      rgb(0 0 0 / 0.5) calc(var(--feather) * 0.5),
+      rgb(0 0 0 / 0.85) calc(var(--feather) * 0.75),
+      #000 var(--feather),
+      #000 calc(100% - var(--feather)),
+      rgb(0 0 0 / 0.85) calc(100% - var(--feather) * 0.75),
+      rgb(0 0 0 / 0.5) calc(100% - var(--feather) * 0.5),
+      rgb(0 0 0 / 0.15) calc(100% - var(--feather) * 0.25),
+      transparent 100%;
+    /* The build's Autoprefixer adds the -webkit- versions of both properties. */
+    mask-image: linear-gradient(to right, var(--feather-stops)),
+      linear-gradient(to bottom, var(--feather-stops));
+    mask-composite: intersect;
   }
 }
 
@@ -95,21 +110,10 @@ body {
     opacity: 1;
     transform: none;
   }
-
-  .reveal-line {
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1) 120ms;
-  }
-
-  .reveal-line.is-visible {
-    transform: scaleX(1);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-line {
+  .reveal {
     opacity: 1;
     transform: none;
     transition: none;
